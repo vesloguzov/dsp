@@ -1,6 +1,5 @@
 import numpy as np
 from scipy import signal
-from scipy.fftpack import fft, ifft, rfft, fft2, fftn, rfft
 import matplotlib.pyplot as plt
 
 N0 = 100
@@ -21,8 +20,8 @@ plt.stem(np.arange(N0), z)
 plt.plot(np.arange(N0), z_et)
 plt.plot(np.arange(N0), np.full((N0, 1), 0.707 * max(z)), 'r')
 
-plt.show()
-plt.close()
+# plt.show()
+# plt.close()
 
 b = np.ones(9)
 b_et = np.ones(9)
@@ -59,14 +58,12 @@ i = 2
 kf = N0 / 2
 
 while kf > N0 / K:
-    f_et = np.abs(np.fft.fft(signal.lfilter(np.ones(i), 1, d_et)))
+    f_et = np.abs(np.fft.fft(signal.lfilter(np.ones((i)), 1, d_et)))
     z0 = [1 if d/max(f_et) < 0.707 else 0 for d in f_et]
-    # print(z0)
+    kf = len(np.where(np.array(z0[:int(np.floor(len(z0)/2))]) < 1)[0]) + 1
     i = i + 1
 
-# print(f_et)
-# print(max(fz_et))
+p_et = i-1
 
-# z0=f_et/max(f_et)<0.707;
-
-# print()
+print(p_et)
+# print(np.ones((10, 1)))
