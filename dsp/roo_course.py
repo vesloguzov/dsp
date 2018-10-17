@@ -3,7 +3,6 @@ from openpyxl import Workbook, load_workbook
 from datetime import date, datetime
 import json
 
-
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
 
@@ -12,12 +11,10 @@ def json_serial(obj):
     raise TypeError("Type %s not serializable" % type(obj))
 
 
-main_wb = load_workbook(
-    '/home/vesloguzov/PROJECTS/dsp/dsp/Экспертиза курсов по университетам моя сводная таблица 17.09.18.xlsx',
-    data_only=True)
+main_wb = load_workbook('/home/vesloguzov/PROJECTS/dsp/dsp/Курсы_в_РОО_экспертиза_описания.xlsx', data_only=True)
 
 main_ws = main_wb[main_wb.sheetnames[2]]
-main_ws = main_wb.get_sheet_by_name('Лист1')
+main_ws = main_wb.get_sheet_by_name('Чеклист')
 
 print(main_ws.max_row)
 ex_list = []
@@ -30,33 +27,16 @@ def get_bool_value(cell_value):
     else:
         return False
 
-elif item['block_type'] == 'openassessment':
-    row = [
-        item['usage_key'].split("@")[-1],
-        item['block_type'],
-        item['display_name'],
-        chapter['usage_key'].split("@")[-1],
-        module_order,
-        chapter['display_name']
-    ]
-    datarows.append(row)
-
 gipermet_count = 0
-for ex_num in range(2, 1081):
+for ex_num in range(2, 727):
     # print(ex_num)
 
-    date = "" if main_ws[f"K{ex_num}"].value is None else main_ws[f"K{ex_num}"].value
-    comment = "" if main_ws[f"J{ex_num}"].value is None else main_ws[f"J{ex_num}"].value
-
-    date_plus_comment = str(date) + " " + str(comment)
-
-    if main_ws[f"G{ex_num}"].value.strip() != "СЭО УрФУ на платформе Гиперметод":
+    if main_ws[f"D{ex_num}"].value.strip() != "СЭО УрФУ на платформе Гиперметод":
         ex_list.append({
-            "course_title": main_ws[f"B{ex_num}"].value,
-            "course_institution": main_ws[f"I{ex_num}"].value,
-            "course_partner": main_ws[f"G{ex_num}"].value,
-            "external_url": main_ws[f"H{ex_num}"].value,
-            "comment": date_plus_comment.strip()
+            "course_title": main_ws[f"H{ex_num}"].value,
+            "course_institution": main_ws[f"G{ex_num}"].value,
+            "course_partner": main_ws[f"D{ex_num}"].value,
+            "external_url": main_ws[f"E{ex_num}"].value,
             # "ex_date": main_ws[f"C{ex_num}"].value,
             # "type": "0",
             # "executed": True,
@@ -108,7 +88,7 @@ for ex_num in range(2, 1081):
 
 print("gipermet_count: ", gipermet_count)
 
-with open("courses.json", "w") as dump:
+with open("dump.json", "w") as dump:
     dump.write(json.dumps(ex_list, default=json_serial))
 
 print("complete")
