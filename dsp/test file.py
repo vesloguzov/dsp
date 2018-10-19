@@ -59,6 +59,10 @@ lol = '{"student_signal":[2,2,2,2,2],"student_filter":[1,1,1,1,1,1],"a":"2","stu
 # tmp1 = math.ceil(math.ceil(N0/Q)/2)
 # tmp1 = np.tile([1, -1], tmp)[0:Ns]
 # signal = np.append(tmp2, np.zeros(N0 - len(tmp2)))
-print(int(float(3.5)))
+
+N0 = 101
+tmp1 = np.tile([1, -1], int(N0/2))
+
+print(len(tmp1))
 
 
