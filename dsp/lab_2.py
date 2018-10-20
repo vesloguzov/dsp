@@ -72,4 +72,4 @@ save_stem(N3, sp, "gr_3.html")
 # plt.stem(np.arange(N3), sp)
 # plt.show()
 
-# f_st=[16 35 38 45]; -- это откуда?
+# f_st=[16 35 38 45]; -- это откуда? -это студенческое
