@@ -34,16 +34,4 @@ def arrays_is_equal_by_elements(x, y, tolerance=0.01):
         res.append(numbers_is_equal(x[idx], y[idx], tolerance=tolerance))
     return res
 
-lol = [1.1,2.003,3,4,5]
-kek = [1,2.11,3,4,5]
-s_score = 1
-
-x = arrays_is_equal_by_elements(lol, kek, 0.02)
-    # .astype(int).tolist()
-
-score = np.round(s_score/float(len(x)) * values_count_in_array(x, value=True), 1)
-        # *len(np.where(x == True)[0])
-
-print(x)
-print()
-print(score)
+print(np.random.rand())
